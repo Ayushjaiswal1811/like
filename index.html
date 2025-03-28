@@ -68,15 +68,41 @@
             border-radius: 10px;
             margin: 5px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        .gallery img:hover {
+            transform: scale(1.1);
         }
-        @keyframes heartbeat {
-            0% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.6; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 80%;
+        }
+        .modal img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+        .close {
+            cursor: pointer;
+            font-size: 20px;
+            color: red;
+            margin-top: 10px;
+            display: block;
         }
     </style>
 </head>
@@ -95,19 +121,37 @@
         
         <div id="gallery" class="gallery">
             <h2>Our Beautiful Memories 📸</h2>
-            <img src="image1.jpg" alt="Memory 1">
-            <img src="image2.jpg" alt="Memory 2">
-            <img src="image3.jpg" alt="Memory 3">
-            <img src="image4.jpg" alt="Memory 4">
+            <img src="image1.jpg" alt="Memory 1" onclick="openModal('image1.jpg', 'Our first special moment together!')">
+            <img src="image2.jpg" alt="Memory 2" onclick="openModal('image2.jpg', 'The day we had so much fun!')">
+            <img src="image3.jpg" alt="Memory 3" onclick="openModal('image3.jpg', 'A moment I’ll always cherish.')">
+            <img src="image4.jpg" alt="Memory 4" onclick="openModal('image4.jpg', 'This day was unforgettable!')">
         </div>
     </div>
+    
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Memory">
+            <p id="modalText"></p>
+            <span class="close">Click anywhere to close</span>
+        </div>
+    </div>
+
     <script>
         function showGallery() {
             document.getElementById('response').classList.remove('hidden');
             document.getElementById('heart').classList.remove('hidden');
             document.getElementById('gallery').style.display = 'block';
         }
+
+        function openModal(imageSrc, text) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalText').textContent = text;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
-
